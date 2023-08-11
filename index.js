@@ -1,16 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-const config = require('config')
+const route = require('./routes/route')
 const path = require('path')
 const fileUpload = require('express-fileupload')
 
-const PORT = config.get('port') || 5000
+const PORT = process.env.port || 4500 
 const db = 'mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/'
 
 const app = express()
 
 app.use(express.json({extended: true}))
+app.use(route)
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/article', require('./routes/article.routes'))
 app.use('/api/content', require('./routes/content.routes'))
