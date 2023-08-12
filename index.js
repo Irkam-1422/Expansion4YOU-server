@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs')
 const route = require('./routes/route')
 const path = require('path')
 const fileUpload = require('express-fileupload')
+require('dotenv').config();
 
 const PORT = process.env.port || 4500 
-const db = process.env.DB_CONNECTION_STRING;
-const apiKey = process.env.API_KEY;
+const db = process.env.DB_CONNECTION_STRING
+const apiKey = process.env.API_KEY
 
 const app = express()
 
@@ -32,7 +33,7 @@ async function start() {
         await mongoose.connect(db, {
             useNewUrlParser: true, 
             useUnifiedTopology: true
-        })
+        }) 
         // di4italmarke4ing
         //const password = await bcrypt.hash('12345', 12)
         console.log('Connected to DB') 
