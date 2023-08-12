@@ -6,7 +6,8 @@ const path = require('path')
 const fileUpload = require('express-fileupload')
 
 const PORT = process.env.port || 4500 
-const db = 'mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/'
+const db = process.env.DB_CONNECTION_STRING;
+const apiKey = process.env.API_KEY;
 
 const app = express()
 
