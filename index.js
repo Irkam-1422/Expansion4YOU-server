@@ -1,14 +1,14 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const route = require('./routes/route')
 const path = require('path')
 const fileUpload = require('express-fileupload')
-require('dotenv').config();
 
-const PORT = process.env.port || 4500 
-const db = process.env.DB_CONNECTION_STRING
-const apiKey = process.env.API_KEY
+const PORT = process.env.port || 4500  
+//const db = process.env.DB_CONNECTION_STRING
+const db = "mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/" 
 
 const app = express()
 
