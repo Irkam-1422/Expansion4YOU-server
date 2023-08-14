@@ -21,10 +21,10 @@ router.get('/:name', async (req,res) => {
         res.json({page})
     } catch (e) {
         res.status(500).json({
-            message: `${e}` || `Something went wrong, try again.`,
-            data: `req.params: ${req.params}
-            name: ${req.params.name}
-            page: ${page}`
+            message: `${e}` || `Something went wrong, try again.`
+            // data: `req.params: ${req.params}
+            // name: ${req.params.name}
+            // page: ${page}`
         })
     } 
 })
