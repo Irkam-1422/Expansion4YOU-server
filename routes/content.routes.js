@@ -7,6 +7,7 @@ const Page = require('../models/Page')
 router.get('/', async (req,res) => {
     try {  
         const pages = await Page.find({})
+        res.send({pages})
         res.json({pages})  
     } catch (e) {
         res.status(500).json({message: `${e}` || `Something went wrong, try again.`})
