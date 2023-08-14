@@ -7,6 +7,10 @@ const router = Router()
 const User = require('../models/User')
 
 // /api/auth
+router.get("/", (req,res) => { 
+    res.send(`jwtSecret: ${config.get("jwtSecret")}`)
+})
+
 router.post(
     '/login', 
     [
