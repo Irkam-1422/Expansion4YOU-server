@@ -18,7 +18,7 @@ const app = express()
 
 app.use(express.json({extended: true}))
 app.use(cors(corsOptions));
-app.use(route)
+// app.use(route)
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/article', require('./routes/article.routes'))
 app.use('/api/content', require('./routes/content.routes'))
