@@ -9,7 +9,9 @@ const User = require('../models/User')
 // /api/auth
 router.get('/', (req, res) => {
     try {
-      const jwtSecret = config.get("jwtSecret"); // Access jwtSecret from config
+      //console.log('config:', config)  
+      //const jwtSecret = config.get("jwtSecret"); // Access jwtSecret from config
+      const jwtSecret = process.env.jwtSecret;
       res.send(`jwtSecret: ${jwtSecret}`);
     } catch (error) {
       res.status(500).send(`Error accessing jwtSecret: ${error}`);
