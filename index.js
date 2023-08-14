@@ -1,18 +1,23 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
 const route = require('./routes/route')
-const path = require('path')
-const fileUpload = require('express-fileupload')
+const cors = require('cors');
 
 const PORT = process.env.port || 4500  
 //const db = process.env.DB_CONNECTION_STRING
 const db = "mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/" 
 
+const corsOptions = {
+    origin: 'https://expansion4-you-client.vercel.app', 
+    methods: 'GET, POST', 
+    allowedHeaders: 'Content-Type, Authorization', 
+  };
+
 const app = express()
 
 app.use(express.json({extended: true}))
+app.use(cors(corsOptions));
 app.use(route)
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/article', require('./routes/article.routes'))
