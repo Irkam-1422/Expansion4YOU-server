@@ -8,7 +8,7 @@ const fs = require('fs')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../client/src/assets'));
+        cb(null, path.join(__dirname, '../client/src/assets'));
     },
     filename: function (req, file, cb) {
         const timestamp = Date.now();
@@ -137,7 +137,7 @@ router.post('/change-file',  upload.single('file'),  async (req,res) => {
         }
     
         const uploadedFilePath = req.file.path; 
-        const existingFilePath = path.join(__dirname, `../../client/src/assets/${req.body.name}`)  // Path to existing file
+        const existingFilePath = path.join(__dirname, `../client/src/assets/${req.body.name}`)  // Path to existing file
     
         console.log(req.body); 
         console.log(req.body.name); 
