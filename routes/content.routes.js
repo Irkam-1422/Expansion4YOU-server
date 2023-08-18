@@ -2,7 +2,26 @@ const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
 const router = Router()
 const Page = require('../models/Page')
+const path = require('path')
+const multer = require('multer')
+const fs = require('fs')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../client/src/assets'));
+    },
+    filename: function (req, file, cb) {
+        const timestamp = Date.now();
+        const ext = path.extname(file.originalname); 
+        const newFilename = `${timestamp}${ext}`;
+        cb(null, newFilename);
+    },
+});
+
+const upload = multer({ 
+    storage: storage,
+    limits: { fieldSize: 25 * 1024 * 1024 }, // Set a reasonable limit
+});
 
 router.get('/', async (req,res) => {
     try {  
@@ -110,5 +129,50 @@ router.post(
         res.status(500).json({message: `${e}` || `Something went wrong, try again.`})
     }
 })
+router.post('/change-file',  upload.single('file'),  async (req,res) => {
 
+    try {
+
+        if (!req.file) {
+            return res.status(400).json({ msg: 'No file uploaded' })
+        }
+    
+        const uploadedFilePath = req.file.path; 
+        const existingFilePath = path.join(__dirname, `../client/src/assets/${req.body.name}`)  // Path to existing file
+    
+        console.log(req.body); 
+        console.log(req.body.name); 
+        console.log(existingFilePath);   
+        console.log(fs.existsSync(existingFilePath))    
+
+        if (fs.existsSync(existingFilePath)) {
+            fs.unlink(existingFilePath, (error) => {
+              if (error) { 
+                console.error('Error deleting existing file:', error);
+                return res.status(500).json({ msg: 'Error deleting existing file.' });
+              }
+
+            const newFilePath = path.join(path.dirname(existingFilePath), req.body.name);
+            console.log(newFilePath)
+            fs.rename(uploadedFilePath, newFilePath, (renameError) => {
+              if (renameError) { 
+                console.error('Error renaming uploaded file:', renameError);
+                return res.status(500).json({ msg: 'Error renaming uploaded file.' });
+              }
+
+            console.log('File replaced and renamed:', newFilePath);
+
+            res.json({ msg: 'File replaced and renamed successfully.' });
+            });
+        });
+        } else {
+            console.error('File does not exist:', error);
+            res.json({ msg: 'File does not exist.' });
+        }
+
+    } catch (error) {
+        console.error('An error occurred:', error);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}) 
 module.exports = router
