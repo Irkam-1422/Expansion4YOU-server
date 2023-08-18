@@ -9,7 +9,7 @@ const PORT = process.env.port || 4500
 const db = "mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/" 
 
 const corsOptions = {
-    origin: 'https://expansion4-you-client.vercel.app', 
+    origin: ['https://expansion4-you-client.vercel.app', 'http://localhost:3001'],
     methods: 'GET, POST', 
     allowedHeaders: 'Content-Type, Authorization', 
   };
