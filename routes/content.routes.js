@@ -147,37 +147,38 @@ router.post('/change-file',  upload.single('file'),  async (req,res) => {
     
         const uploadedFilePath = req.file.path; 
         //const existingFilePath = path.join(__dirname, `../../client/src/assets/${req.body.name}`)  
-        const existingFilePath = path.join(ROOT_PATH, `client/src/assets/${req.body.name}`);
+        // const existingFilePath = path.join(ROOT_PATH, `client/src/assets/${req.body.name}`);
     
-        console.log(req.body); 
-        console.log(req.body.name); 
-        console.log(existingFilePath);   
-        console.log(fs.existsSync(existingFilePath))     
+        // console.log(req.body); 
+        // console.log(req.body.name); 
+        // console.log(existingFilePath);   
+        // console.log(fs.existsSync(existingFilePath))     
 
-        if (fs.existsSync(existingFilePath)) {
-            fs.unlink(existingFilePath, (error) => {
-              if (error) { 
-                console.error('Error deleting existing file:', error);
-                return res.status(500).json({ msg: 'Error deleting existing file.' });
-              }
+        // if (fs.existsSync(existingFilePath)) {
+        //     fs.unlink(existingFilePath, (error) => {
+        //       if (error) { 
+        //         console.error('Error deleting existing file:', error);
+        //         return res.status(500).json({ msg: 'Error deleting existing file.' });
+        //       }
 
-            const newFilePath = path.join(path.dirname(existingFilePath), req.body.name);
-            console.log(newFilePath)
-            fs.rename(uploadedFilePath, newFilePath, (renameError) => {
-              if (renameError) { 
-                console.error('Error renaming uploaded file:', renameError);
-                return res.status(500).json({ msg: 'Error renaming uploaded file.' });
-              }
+        //     const newFilePath = path.join(path.dirname(existingFilePath), req.body.name);
+        //     console.log(newFilePath)
+        //     fs.rename(uploadedFilePath, newFilePath, (renameError) => {
+        //       if (renameError) { 
+        //         console.error('Error renaming uploaded file:', renameError);
+        //         return res.status(500).json({ msg: 'Error renaming uploaded file.' });
+        //       }
 
-            console.log('File replaced and renamed:', newFilePath);
+        //     console.log('File replaced and renamed:', newFilePath);
 
-            res.json({ msg: 'File replaced and renamed successfully.' });
-            });
-        });
-        } else {
-            console.error('File does not exist:', error);
-            res.json({ msg: 'File does not exist.' });
-        }
+        //     res.json({ msg: 'File replaced and renamed successfully.' });
+        //     });
+        // });
+        // } else {
+        //     console.error('File does not exist:', error);
+        //     res.json({ msg: 'File does not exist.' });
+        // }
+        res.json({ msg: 'File replaced and renamed successfully.', file: uploadedFilePath }); 
 
     } catch (error) {
         console.error('An error occurred:', error);
