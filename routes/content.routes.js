@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         // cb(null, path.join(__dirname, '../../client/src/assets')); 
         //cb(null, path.join(ROOT_PATH, 'client/src/assets'));  
         //cb(null, path.join(ROOT_PATH, 'client', 'src', 'assets'));
-        cb(null, 'https://expansion4-you-client.vercel.app/static/media');
+        cb(null, 'C:\Users/macairmormul/Documents/EXPANSION4YOU copy/client/src/assets');
         // 	https://expansion4-you-client.vercel.app/static/media/work5.62e00d48c4a5c27e5e6e.png
     },
     filename: function (req, file, cb) {
