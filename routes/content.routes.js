@@ -6,12 +6,14 @@ const path = require('path')
 const multer = require('multer')
 const fs = require('fs')
 
-const ROOT_PATH = path.join(__dirname, '../..');
+//const ROOT_PATH = path.join(__dirname, '../..'); 
+const ROOT_PATH = path.join(__dirname, '..'); 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, path.join(__dirname, '../../client/src/assets')); 
-        cb(null, path.join(ROOT_PATH, 'client/src/assets')); 
+        //cb(null, path.join(ROOT_PATH, 'client/src/assets'));  
+        cb(null, path.join(ROOT_PATH, 'client', 'src', 'assets'));
     },
     filename: function (req, file, cb) {
         // const timestamp = Date.now();
