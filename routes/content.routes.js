@@ -5,34 +5,30 @@ const Page = require('../models/Page')
 const path = require('path')
 const multer = require('multer')
 const fs = require('fs')
+const createGridFS = require('../gridfs');
 
-//const ROOT_PATH = path.join(__dirname, '../..'); 
-//const ROOT_PATH = path.join(__dirname, '..'); 
-const ROOT_PATH = path.resolve(__dirname, '..', '..', '..');
-//const ROOT_PATH = path.resolve(__dirname, '..');  
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         // cb(null, path.join(__dirname, '../../client/src/assets')); 
+//         cb(null, 'C:\Users/macairmormul/Documents/EXPANSION4YOU copy/client/src/assets');
+//     },
+//     filename: function (req, file, cb) {
+//         // const timestamp = Date.now();
+//         // const ext = path.extname(file.originalname); 
+//         // const newFilename = `${timestamp}${ext}`;
+//         // cb(null, newFilename);
+//         const newFilename = file.originalname;
+//         cb(null, newFilename);
+//     },
+// });
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        // cb(null, path.join(__dirname, '../../client/src/assets')); 
-        //cb(null, path.join(ROOT_PATH, 'client/src/assets'));  
-        //cb(null, path.join(ROOT_PATH, 'client', 'src', 'assets'));
-        cb(null, 'C:\Users/macairmormul/Documents/EXPANSION4YOU copy/client/src/assets');
-        // 	https://expansion4-you-client.vercel.app/static/media/work5.62e00d48c4a5c27e5e6e.png
-    },
-    filename: function (req, file, cb) {
-        // const timestamp = Date.now();
-        // const ext = path.extname(file.originalname); 
-        // const newFilename = `${timestamp}${ext}`;
-        // cb(null, newFilename);
-        const newFilename = file.originalname;
-        cb(null, newFilename);
-    },
-});
+// const upload = multer({ 
+//     storage: storage,
+//     limits: { fieldSize: 25 * 1024 * 1024 }, // Set a reasonable limit
+// });
 
-const upload = multer({ 
-    storage: storage,
-    limits: { fieldSize: 25 * 1024 * 1024 }, // Set a reasonable limit
-});
+const storage = multer.memoryStorage(); 
+const upload = multer({ storage: storage });
 
 router.get('/', async (req,res) => {
     try {  

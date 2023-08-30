@@ -10,8 +10,8 @@ const User = require('../models/User')
 router.get('/', (req, res) => {
     try {
       //console.log('config:', config)  
-      //const jwtSecret = config.get("jwtSecret"); // Access jwtSecret from config
-      const jwtSecret = process.env.jwtSecret;
+      const jwtSecret = config.get("jwtSecret"); // Access jwtSecret from config
+      //const jwtSecret = process.env.jwtSecret;
       res.send(`jwtSecret: ${jwtSecret}`);
     } catch (error) {
       res.status(500).send(`Error accessing jwtSecret: ${error}`);
@@ -45,8 +45,8 @@ router.post(
 
         const token = jwt.sign(
             {userId: user.id},  
-            //config.get('jwtSecret'),
-            process.env.jwtSecret,
+            config.get('jwtSecret'),
+            //process.env.jwtSecret,
             {expiresIn: '1h'} 
         )
         

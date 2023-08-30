@@ -2,10 +2,9 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const route = require('./routes/route')
-const cors = require('cors');
+const cors = require('cors')
 
 const PORT = process.env.port || 4500  
-//const db = process.env.DB_CONNECTION_STRING
 const db = "mongodb+srv://expansion4you:xH7Rd6ji1Ya413xm@cluster0.kgapqpo.mongodb.net/" 
 
 const corsOptions = {
@@ -29,7 +28,7 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/article', require('./routes/article.routes'))
 app.use('/api/content', require('./routes/content.routes'))
 app.use('/api/casestudy', require('./routes/casestudy.routes'))
-app.use('/api/email', require('./routes/email.routes'))  
+app.use('/api/email', require('./routes/email.routes')) 
 
 // if (process.env.NODE_ENV === 'production') {
 //     app.use('/', express.static(path.join(__dirname, 'client', 'build')))
@@ -39,16 +38,18 @@ app.use('/api/email', require('./routes/email.routes'))
 //     })
 // }
 
+// app.use('/api/file', require('./routes/file.routes'))  
+// app.listen(PORT, () => console.log('Server has been started'))
+
 async function start() { 
     try {
         await mongoose.connect(db, {
             useNewUrlParser: true, 
-            useUnifiedTopology: true
-        }) 
-        // di4italmarke4ing
-        //const password = await bcrypt.hash('12345', 12)
+            useUnifiedTopology: true 
+        })
         console.log('Connected to DB') 
-        app.listen(PORT, () => console.log('Server has been started'))
+        app.use('/api/file', require('./routes/file.routes'))  
+        app.listen(PORT, () => console.log('Server has been started on', PORT))
     } catch (e) {
         console.log('Server Error', e.message);
         process.exit(1)
